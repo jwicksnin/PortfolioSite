@@ -40,6 +40,23 @@ describe('Portfolio JSON api', function(){
         done();
     });
   });
+
+  it('should be able to update a current work', function(done){
+    superagent.put('http://localhost:3000/api/v1/works/' + id).send({title: 'Another App'})
+    .end(function(er, res) {
+      expect(er).to.be.equal(null);
+      expect(res.body.msg).to.be.eql('success');
+      done();
+    });
+  });
+
+  it('should be able to delete a current work', function(done){
+    superagent.del('http://localhost:3000/api/v1/works/' + id).end(function(e, res){
+      expect(e).to.equal(null);
+      expect(res.body.msg).to.be.equal('success');
+      done();
+    });
+  });
 });
 
 

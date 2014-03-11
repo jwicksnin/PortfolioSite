@@ -21,6 +21,10 @@ app.post('/api/v1/works', works.createWork);
 
 app.get('/api/v1/works/:id', works.findWorkById);
 
+app.put('/api/v1/works/:id', works.updateWork);
+
+app.delete('/api/v1/works/:id', works.deleteWork);
+
 var server = http.createServer(app);
 server.listen(3000, function(){
    console.log("server running");

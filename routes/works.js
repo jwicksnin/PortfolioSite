@@ -39,3 +39,27 @@ exports.findWorkById = function(req, res){
     }
   });
 };
+
+exports.updateWork = function(req, res){
+  //res.setHeader('Content-Type', 'application/json');
+  var id = req.params.id;
+  var work = req.body;
+  Work.update({'_id': String(id)}, work, function(err){
+    if(err) {
+      res.send({'error': err});
+    } else {
+      res.send({msg: 'success'});
+    }
+  });
+};
+
+exports.deleteWork = function(req, res){
+  var id = String(req.params.id);
+  Work.remove({'_id': id}, function(err){
+    if(err) {
+      res.send({'error': err});
+    } else {
+      res.send({msg: 'success'});
+    }
+  });
+};
