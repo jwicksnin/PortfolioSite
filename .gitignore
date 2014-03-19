@@ -15,3 +15,5 @@ build/
 dist/
 bower_components/
 .sass-cache/
+build
+dist
