@@ -1,4 +1,4 @@
-lib-cov
+lib-cov/
 *.seed
 *.log
 *.csv
@@ -7,9 +7,11 @@ lib-cov
 *.pid
 *.gz
 
-pids
-logs
-results
-
 npm-debug.log
-node_modules
+node_modules/
+test/acceptance/*-results.xml
+
+build/
+dist/
+bower_components/
+.sass-cache/
