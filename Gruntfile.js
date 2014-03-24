@@ -17,14 +17,14 @@ module.exports = function(grunt) {
     clean: {
       build: ['build'],
       dev: {
-        src: ['build/server.js', 'build/<%= pkg.name %>.css', 'build/<%= pkg.name %>.js']
+        src: ['build/app.js', 'build/<%= pkg.name %>.css', 'build/<%= pkg.name %>.js']
       },
       prod: ['dist']
     },
     copy: {
       prod: {
         expand: true,
-        cwd: 'assets',
+        cwd: 'app/assets',
         src: ['/css/*.css', '*.html', '/images/**/*' ],
         dest: 'dist/',
         flatten: true,
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       },
       dev: {
         expand: true,
-        cwd: 'assets',
+        cwd: 'app/assets',
         src: ['/css/*.css', '*.html', '/images/**/*' ],
         dest: 'build/',
         flatten: true,
@@ -41,16 +41,16 @@ module.exports = function(grunt) {
     },
     browserify: {
       prod: {
-        src: ['assets/js/*.js'],
-        dest: 'dist/server.js',
+        src: ['app/assets/js/*.js'],
+        dest: 'dist/browser.js',
         options: {
           transform: ['debowerify'],
           debug: false
         }
       },
       dev: {
-        src: ['assets/js/*.js'],
-        dest: 'build/server.js',
+        src: ['app/assets/js/*.js'],
+        dest: 'build/browser.js',
         options: {
           transform: ['debowerify'],
           debug: true
@@ -69,14 +69,15 @@ module.exports = function(grunt) {
     },
     watch:{
       all:{
-        files:['app.js', 'models/*.js'],
+        files:['app.js', 'api/models/*.js'],
         tasks:['jshint']
       },
       express: {
-        files: ['app.js', 'models/**/*.js', 'routes/**/*.js'],
-        //tasks: ['sass:dev', 'browserify:dev', 'express:dev'],
-        tasks: ['jshint'],
+        files:  [ 'app.js','api/**/*','app/assets/**/*','app/*.js' ],
+        tasks:  [ 'clean', 'copy', 'browserify:dev', 'express:dev' ],
         options: {
+          // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions.
+          // Without this option specified express won't be reloaded
           spawn: false
         }
       }
@@ -103,7 +104,7 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      all: ['Gruntfile.js', 'app.js', 'models/**/*.js', 'test/**/*.js'],
+      all: ['Gruntfile.js', 'app.js', 'api/models/**/*.js', 'test/**/*.js'],
       options: {
         jshintrc: true,
         globals: {

@@ -13,5 +13,12 @@
     "bower_components",
     "test",
     "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "backbone": "~1.1.2"
+  },
+  "moduleType": [
+    "node"
   ]
 }

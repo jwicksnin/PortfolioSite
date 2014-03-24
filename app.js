@@ -14,7 +14,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-var works = require('./routes/works');
+var works = require('./api/routes/works');
 
 app.get('/api/v1/works', works.collection);
 
