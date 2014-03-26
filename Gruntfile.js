@@ -59,7 +59,7 @@ module.exports = function(grunt) {
     },
     simplemocha:{
       dev:{
-        src:['test/**/*_test.js'],
+        src:['test/*_test.js','!test/acceptance/*_test.js'],
         options:{
           reporter: 'spec',
           slow: 200,
@@ -154,13 +154,14 @@ module.exports = function(grunt) {
     }
   });
 
-
+  //grunt mocha cov
   grunt.registerTask('server', [ 'express:dev','watch:express' ]);
   grunt.registerTask('test:acceptance',['express:dev','casper']);
   grunt.registerTask('default', ['test','watch:express']);
   grunt.registerTask('build:dev',  ['clean:dev', 'browserify:dev', 'copy:dev']);
   grunt.registerTask('build:prod', ['clean:prod', 'browserify:prod', 'copy:prod']);
   grunt.registerTask('test', ['simplemocha:dev']);
-
+  // grunt.registerTask('travis', ['jshint', 'mochacov:unit', 'mochacov:coverage', 'mochacov:coveralls']);
+  grunt.registerTask('travis', ['jshint']);
 
 };
