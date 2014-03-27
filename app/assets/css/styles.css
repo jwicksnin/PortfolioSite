@@ -1,3 +1,7 @@
 body {
-  color: green;
+  color: blue;
+}
+
+.button {
+  background-color: #F36FB3;
 }
