@@ -6,6 +6,7 @@ var app = express();
 
 app.configure(function(){
   app.use(express.bodyParser());
+  app.use(express.static(path.join(__dirname, 'build')));
   app.use(app.router);
 });
 
@@ -13,7 +14,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-var works = require('./routes/works');
+var works = require('./api/routes/works');
 
 app.get('/api/v1/works', works.collection);
 
@@ -28,4 +29,4 @@ app.delete('/api/v1/works/:id', works.deleteWork);
 var server = http.createServer(app);
 server.listen(3000, function(){
    console.log("server running");
-})
+});
