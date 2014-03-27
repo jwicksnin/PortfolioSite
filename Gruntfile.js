@@ -9,7 +9,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-sass');
+  //grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-mongoimport');
 
   grunt.initConfig({
@@ -24,16 +24,18 @@ module.exports = function(grunt) {
     copy: {
       prod: {
         expand: true,
-        cwd: 'app/assets',
-        src: ['/css/*.css', '*.html', '/images/**/*' ],
+        cwd: 'app/assets/',
+        src: ['css/*.css', '*.html', 'images/**/*' ],
         dest: 'dist/',
         flatten: true,
         filter: 'isFile'
       },
       dev: {
+        nonull: true,
         expand: true,
-        cwd: 'app/assets',
-        src: ['/css/*.css', '*.html', '/images/**/*' ],
+        cwd: 'app/assets/',
+        src: ['css/*.css', '*.html', 'images/**/*' ],
+        //src: 'css/*.css',
         dest: 'build/',
         flatten: true,
         filter: 'isFile'
@@ -141,21 +143,13 @@ module.exports = function(grunt) {
             upsert : true,  //optional
             drop : true  //optional
           },
-          // {
-          //   name : 'meetings',
-          //   type :'json',
-          //   file : 'db/seeds/meetings.json',
-          //   jsonArray : true,
-          //   upsert : true,
-          //   drop : true
-          // }
         ]
       }
     }
   });
 
   //grunt mocha cov
-  grunt.registerTask('server', [ 'express:dev','watch:express' ]);
+  grunt.registerTask('server', [ 'build:dev', 'express:dev','watch:express' ]);
   grunt.registerTask('test:acceptance',['express:dev','casper']);
   grunt.registerTask('default', ['test','watch:express']);
   grunt.registerTask('build:dev',  ['clean:dev', 'browserify:dev', 'copy:dev']);
